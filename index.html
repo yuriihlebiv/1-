@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MODEUA — Інтернет-магазин одягу</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo" onclick="scrollToTop()">MODE<em>UA</em></div>
+  <ul class="nav-links">
+    <li><a href="#">Жінкам</a></li>
+    <li><a href="#">Чоловікам</a></li>
+    <li><a href="#">Дітям</a></li>
+    <li><a href="#">Колекції</a></li>
+    <li><a href="#">Акції</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="icon-btn" aria-label="Пошук"><i class="ti ti-search"></i></button>
+    <button class="icon-btn" aria-label="Обране"><i class="ti ti-heart"></i></button>
+    <button class="icon-btn" onclick="openAccountModal()" aria-label="Кабінет">
+      <i class="ti ti-user" id="nav-user-icon"></i>
+    </button>
+    <button class="icon-btn" onclick="openCart()" aria-label="Кошик">
+      <i class="ti ti-shopping-bag"></i>
+      <span class="cart-badge" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Колекція весна–літо 2025</div>
+    <h1>Стиль, що говорить за вас</h1>
+    <p>Вишуканий одяг українських і світових брендів. Нові надходження щотижня. Безкоштовна доставка від 1500₴.</p>
+    <div class="hero-btns">
+      <button class="btn-gold">Переглянути колекцію</button>
+      <button class="btn-ghost">Новинки</button>
+    </div>
+  </div>
+  <div class="hero-right" style="padding:0;position:relative;overflow:hidden">
+    <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=85" alt="Fashion model" style="width:100%;height:100%;object-fit:cover;display:block">
+    <div style="position:absolute;bottom:2rem;left:2rem;display:flex;gap:0.75rem;flex-wrap:wrap">
+      <span class="hero-tag">Плаття</span>
+      <span class="hero-tag">Піджаки</span>
+      <span class="hero-tag">Джинси</span>
+      <span class="hero-tag">Взуття</span>
+    </div>
+  </div>
+</div>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><i class="ti ti-truck"></i> Безкоштовна доставка від 1500₴</div>
+  <div class="strip-item"><i class="ti ti-refresh"></i> Повернення протягом 30 днів</div>
+  <div class="strip-item"><i class="ti ti-shield-check"></i> Оригінальний товар</div>
+  <div class="strip-item"><i class="ti ti-credit-card"></i> Оплата частинами</div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-bar">
+  <span class="filter-label">Фільтр:</span>
+  <button class="filter-btn active" onclick="filterProducts('all',this)">Усе</button>
+  <button class="filter-btn" onclick="filterProducts('women',this)">Жіноче</button>
+  <button class="filter-btn" onclick="filterProducts('men',this)">Чоловіче</button>
+  <button class="filter-btn" onclick="filterProducts('sale',this)">Знижки</button>
+  <select class="filter-select" onchange="sortProducts(this.value)">
+    <option value="">Сортування</option>
+    <option value="price-asc">Ціна: від низької</option>
+    <option value="price-desc">Ціна: від високої</option>
+    <option value="new">Новинки</option>
+  </select>
+</div>
+
+<!-- PRODUCTS -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">Актуальні товари</div>
+    <a class="section-link" href="#">Весь каталог</a>
+  </div>
+  <div class="products-grid" id="products-grid"></div>
+</div>
+
+<!-- LOOKBOOK -->
+<div class="lookbook">
+  <h2>Образи сезону</h2>
+  <p>Натхнення для щоденного стилю</p>
+  <div class="looks">
+    <div class="look" style="background:none;padding:0"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80" alt="Casual"><span class="look-label">Casual</span></div>
+    <div class="look" style="background:none;padding:0"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4b984c?w=600&q=80" alt="Office"><span class="look-label">Office</span></div>
+    <div class="look" style="background:none;padding:0"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" alt="Summer"><span class="look-label">Summer</span></div>
+    <div class="look" style="background:none;padding:0"><img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=600&q=80" alt="Formal"><span class="look-label">Formal</span></div>
+    <div class="look" style="background:none;padding:0"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" alt="Street"><span class="look-label">Street</span></div>
+  </div>
+</div>
+
+<!-- SIZE GUIDE -->
+<div class="size-section">
+  <div class="size-text">
+    <h3>Не впевнені з розміром?</h3>
+    <p>Скористайтесь нашим детальним гідом по розмірах — одяг сяде ідеально.</p>
+  </div>
+  <button class="size-guide-btn">Таблиця розмірів</button>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <h2>Будьте в тренді</h2>
+  <p>Підпишіться та отримуйте знижку 10% на перше замовлення</p>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="Ваш email..." />
+    <button class="nl-btn">Підписатись</button>
+  </div>
+</div>
+
+<footer>
+  © 2026 <span>MODEUA</span> · Інтернет-магазин одягу · Зроблено в Україні ·
+  <a href="#" onclick="openAdminPanel()" style="color:var(--accent);text-decoration:none;margin-left:4px">Адмін-панель</a>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- CART PANEL -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-panel" id="cart-panel">
+  <div class="cart-head">
+    <h2>Кошик</h2>
+    <button class="cart-close" onclick="closeCart()"><i class="ti ti-x"></i></button>
+  </div>
+  <div class="cart-body" id="cart-body"></div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="total-row"><span>Підсумок</span><span id="subtotal-val"></span></div>
+    <div class="total-row"><span>Доставка</span><span style="color:#2B5C3F">Безкоштовно</span></div>
+    <div class="total-main"><span>Разом</span><span id="total-val"></span></div>
+    <button class="checkout-btn" onclick="openCheckout()">Оформити замовлення</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-bg" id="checkout-modal">
+  <div class="modal" id="checkout-modal-inner">
+    <div class="modal-header">
+      <h2 id="checkout-modal-title">Оформлення замовлення</h2>
+      <button class="modal-close" onclick="closeModal('checkout-modal')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="checkout-modal-body">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ACCOUNT MODAL -->
+<div class="modal-bg" id="account-modal">
+  <div class="modal" id="account-modal-inner">
+    <div class="modal-header">
+      <h2 id="account-modal-title">Особистий кабінет</h2>
+      <button class="modal-close" onclick="closeModal('account-modal')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="account-modal-body">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div class="admin-panel" id="admin-panel">
+  <div class="admin-nav">
+    <div class="admin-nav-left">
+      <div class="admin-logo">MODE<em>UA</em><span>Адмін</span></div>
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Огляд</button>
+        <button class="admin-tab" onclick="switchAdminTab('products',this)"><i class="ti ti-shirt"></i>Товари</button>
+        <button class="admin-tab" onclick="switchAdminTab('orders',this)"><i class="ti ti-package"></i>Замовлення</button>
+        <button class="admin-tab" onclick="switchAdminTab('clients',this)"><i class="ti ti-users"></i>Клієнти</button>
+      </div>
+    </div>
+    <button class="admin-close-btn" onclick="closeAdminPanel()"><i class="ti ti-arrow-left"></i> До магазину</button>
+  </div>
+  <div class="admin-content">
+    <!-- DASHBOARD -->
+    <div class="admin-pane active" id="pane-dashboard">
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-label">Замовлень сьогодні</div>
+          <div class="stat-val" id="stat-orders-today">0</div>
+          <div class="stat-sub">+3 порівняно з вчора</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Виручка (місяць)</div>
+          <div class="stat-val" id="stat-revenue">0₴</div>
+          <div class="stat-sub">Поточний місяць</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Товарів у каталозі</div>
+          <div class="stat-val" id="stat-products">0</div>
+          <div class="stat-sub">Активних позицій</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Клієнтів</div>
+          <div class="stat-val" id="stat-clients">0</div>
+          <div class="stat-sub">Зареєстровано</div>
+        </div>
+      </div>
+      <div style="background:var(--surface);padding:1.5rem;margin-bottom:1.5rem">
+        <div style="font-family:'Playfair Display',serif;font-size:18px;margin-bottom:1rem">Останні замовлення</div>
+        <div id="dashboard-orders-list"></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS MANAGEMENT -->
+    <div class="admin-pane" id="pane-products">
+      <div class="admin-toolbar">
+        <input class="admin-search" type="text" placeholder="Пошук товарів..." oninput="filterAdminProducts(this.value)" id="prod-search">
+        <select class="admin-select" onchange="filterAdminProductsCat(this.value)">
+          <option value="">Усі категорії</option>
+          <option value="women">Жіноче</option>
+          <option value="men">Чоловіче</option>
+        </select>
+        <button class="admin-btn" onclick="openProductForm()"><i class="ti ti-plus"></i>Додати товар</button>
+      </div>
+      <table class="data-table" id="admin-products-table">
+        <thead>
+          <tr>
+            <th>Товар</th>
+            <th>Категорія</th>
+            <th>Ціна</th>
+            <th>Залишок</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody id="admin-products-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- ORDERS MANAGEMENT -->
+    <div class="admin-pane" id="pane-orders">
+      <div class="admin-toolbar">
+        <input class="admin-search" type="text" placeholder="Пошук замовлень..." oninput="filterAdminOrders(this.value)">
+        <select class="admin-select" onchange="filterAdminOrdersStatus(this.value)">
+          <option value="">Усі статуси</option>
+          <option value="processing">В обробці</option>
+          <option value="shipped">Відправлено</option>
+          <option value="delivered">Доставлено</option>
+          <option value="cancelled">Скасовано</option>
+        </select>
+        <button class="admin-btn-outline" onclick="exportOrders()"><i class="ti ti-download"></i>Експорт CSV</button>
+      </div>
+      <table class="data-table" id="admin-orders-table">
+        <thead>
+          <tr>
+            <th>№ замовлення</th>
+            <th>Клієнт</th>
+            <th>Товари</th>
+            <th>Сума</th>
+            <th>Статус</th>
+            <th>Дата</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody id="admin-orders-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- CLIENTS -->
+    <div class="admin-pane" id="pane-clients">
+      <div class="admin-toolbar">
+        <input class="admin-search" type="text" placeholder="Пошук клієнтів..." oninput="filterAdminClients(this.value)">
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Клієнт</th><th>Email</th><th>Вхід через</th><th>Замовлень</th><th>Загальна сума</th><th>Дата реєстрації</th></tr>
+        </thead>
+        <tbody id="admin-clients-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT FORM MODAL -->
+<div class="modal-bg" id="product-form-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="product-form-title">Новий товар</h2>
+      <button class="modal-close" onclick="closeModal('product-form-modal')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="product-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Назва товару</label>
+            <input type="text" id="pf-name" placeholder="Назва...">
+          </div>
+          <div class="form-group">
+            <label>Бренд</label>
+            <input type="text" id="pf-brand" placeholder="Бренд...">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Категорія</label>
+            <select id="pf-cat">
+              <option value="women">Жіноче</option>
+              <option value="men">Чоловіче</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Бейдж</label>
+            <select id="pf-badge">
+              <option value="">Без бейджа</option>
+              <option value="new">NEW</option>
+              <option value="sale">SALE</option>
+              <option value="hot">ХІТ</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Ціна (₴)</label>
+            <input type="number" id="pf-price" placeholder="0">
+          </div>
+          <div class="form-group">
+            <label>Стара ціна (₴)</label>
+            <input type="number" id="pf-old" placeholder="0 (необов'язково)">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Розміри (через кому)</label>
+          <input type="text" id="pf-sizes" placeholder="XS, S, M, L, XL">
+        </div>
+        <div class="form-group">
+          <label>URL фото</label>
+          <input type="text" id="pf-photo" placeholder="https://..." oninput="previewProductPhoto(this.value)">
+          <div id="pf-photo-preview" class="img-placeholder"><i class="ti ti-photo" style="font-size:32px"></i><span>Прев'ю фото</span></div>
+        </div>
+        <button class="save-product-btn" onclick="saveProduct()"><i class="ti ti-check" style="margin-right:6px"></i>Зберегти товар</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER DETAIL MODAL -->
+<div class="modal-bg" id="order-detail-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="order-detail-title">Замовлення</h2>
+      <button class="modal-close" onclick="closeModal('order-detail-modal')"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="modal-body" id="order-detail-body"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
